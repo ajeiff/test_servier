@@ -1,10 +1,10 @@
-# This is a sample Python script.
 import pandas as pd
 import json
 from cleaning_csv.common_utils import create_formated_date
 from cleaning_csv.clinical_trials import clean_trials
 import operator
 import numpy as np
+
 
 class NpEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -60,15 +60,16 @@ def create_json_file(json_dict):
     return json.dump(json_dict)
 
 
-#create json output file
+# create json output file
 def create_json_dict(df_pubmed, df_trials, df_drugs):
     json_dict = dict()
     for name_drug in df_drugs['drug']:
         json_dict[small_single_string(name_drug)[0]] = publications(df_pubmed=df_pubmed_clean, df_trials=df_trials_clean, name_drug=name_drug)
     return json_dict
 
+
 def top_mentionning_journal(data):
-#find the name of the journal that has the highest number of different drugs mentioned
+# find the name of the journal that has the highest number of different drugs mentioned
     dict_journal = dict()
     # explore each item of the json file by key, so to say by drug
     for drug in list(data.keys()):
@@ -84,7 +85,7 @@ def top_mentionning_journal(data):
                 dict_journal[elt] += 1
             else:
                 dict_journal[elt] = 1
-    #find the journal, so to say the key, that has the highest value
+    # find the journal, so to say the key, that has the highest value
     result = max(dict_journal.items(), key=operator.itemgetter(1))[0]
     return result
 
