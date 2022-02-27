@@ -64,7 +64,7 @@ def create_json_file(json_dict):
 def create_json_dict(df_pubmed, df_trials, df_drugs):
     json_dict = dict()
     for name_drug in df_drugs['drug']:
-        json_dict[small_single_string(name_drug)[0]] = publications(df_pubmed=df_pubmed_clean, df_trials=df_trials_clean, name_drug=name_drug)
+        json_dict[small_single_string(name_drug)[0]] = publications(df_pubmed=df_pubmed, df_trials=df_trials, name_drug=name_drug)
     return json_dict
 
 
@@ -90,7 +90,7 @@ def top_mentionning_journal(data):
     return result
 
 
-if __name__ == '__main__':
+def run():
     df_trials = pd.read_csv('cleaning_csv/csv/clinical_trials.csv')
     df_trials_clean = clean_trials(df_trials)
 
@@ -104,6 +104,8 @@ if __name__ == '__main__':
         json.dump(json_dict, write_file)
 
 
+if __name__ == '__main__':
+    run()
 
     ## part 4 of the exercise: get the journal with the highest number of different drugs mentionned
 
